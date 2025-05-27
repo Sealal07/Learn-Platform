@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Delete course{% endblock %}
+{% block content %}
+    <h1>Delete course '{{ object.title }}'</h1>
+    <div class="module">
+         <p>Are you sure you want to delete '{{ object.title }}'?</p>
+        <button data-modal-target="#deleteModal" class="btn btn-danger">
+            Delete
+        </button>
+        <a href="{{ object.get_absolute_url }}" class="btn btn-secondary">
+            Cancel
+        </a>
+    </div>
+<!--     Modal -->
+        <div class="modal" id="deleteModal">
+            <div class="modal-content delete-confirmation">
+                <button class="close-modal">&times;</button>
+                <h2>Confirm Deletion</h2>
+                 <form action="" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-danger" type="submit">Confirm</button>
+                 </form>
+            </div>
+    </div>
+{% endblock %}

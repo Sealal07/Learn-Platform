@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Education{% endblock %}</title>
+    {% load static %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+  <header>
+    <a href="/" class="logo">Ed</a>
+    <nav>
+      <ul class="menu">
+        {% if request.user.is_authenticated %}
+          <li>
+            <form action="{% url 'logout' %}" method="post">
+              {% csrf_token %}
+              <button type="submit">Log Out</button>
+            </form>
+          </li>
+        {% else %}
+        <li><a href="{% url 'login' %}">Log In</a> </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
+ <a href="{% url 'manage_course_list'%}">Курсы</a>
+{%block breadcrumbs %}
+  {% if request.path == '/course/create/' %}
+    <span class="separator">/</span>
+    <span class="current">Создание курса</span>
+{% elif 'edit' in request.path %}
+    <span class="separator">/</span>
+    <span class="current">Редактирование курса</span>
+  {% elif 'delete' in request.path %}
+    <span class="separator">/</span>
+    <span class="current">Удаление курса</span>
+    {% elif url_name == 'module_content_list' %}
+    <span class="separator">/</span>
+    <span class="current">Модули курса</span>
+  {% endif %}
+{% endblock %}
+  <div id="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+  {% block include_js %}
+  {% endblock %}
+<body>
+  <script>
+    document.addEventListener('DOMContentLoaded',
+    function(){
+      document.querySelectorAll('[data-modal-target]').forEach(
+        button => {
+          button.addEventListener('click', function(){
+            const target = this.getAttribute('data-modal-target');
+            document.querySelector(target).style.display = 'flex';
+          });
+        });
+        document.querySelectorAll('.close-modal, .modal').forEach(
+          element => {
+            element.addEventListener('click', function(e){
+              if (e.target === this || e.target.classList.contains('close-modal')){
+                this.style.display = 'none';
+              }
+            });
+          });
+    });
+{% block domready %}{% endblock %}
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load course %}
+{% block title %}
+    {{ module.title }}
+{% endblock %}
+{% block content %}
+    <h1>{{ course.title }}</h1>
+    <h2>{{ module.title }}</h2>
+    <p>{{ module.description }}</p>
+
+    <h3>Contents</h3>
+    <ul>
+        {% for content in module.contents.all %}
+        <li>
+            {% with item=content.item %}
+            <h4>{{ item.title }}</h4>
+            <div>
+                {% if item|model_name == 'text' %}
+                    {{ item.body }}
+                {% elif item|model_name == 'image' %}
+                    <img src="{{ item.file.url }}">
+                {% elif item|model_name == 'video' %}
+                    <video controls>
+                        <source src="{{ item.file }}"
+                        type="video/mp4">
+                    </video>
+                {% elif item|model_name == 'file' %}
+                <a href="{{ item.file.url }}" target="_blank">Посмотреть</a>
+                <a href="{{ item.file.url }}" download>Скачать</a>
+
+                {% endif %}
+            </div>
+            {% endwith %}
+
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

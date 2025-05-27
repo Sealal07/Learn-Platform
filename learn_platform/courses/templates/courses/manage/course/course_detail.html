@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load course %}
+{% block title %}
+{{ course.title }}
+{% endblock %}
+{% block content %}
+    <h1>{{ course.title }}</h1>
+    <ul>
+        {% for module in course.modules.all %}
+            <li>
+                <a href="{% url 'module_detail' module.id %}" target="_blank">
+                    {{ module.title }}
+                </a>
+                <p>{{ module.description }}</p>
+            </li>
+            {% empty %}
+            <li>No module yet</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
