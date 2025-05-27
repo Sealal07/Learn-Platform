@@ -3,7 +3,7 @@
 1. Клонирование репозитория
 
 
-git clone https://github.com/yourusername/learn_platform.git
+git clone https://github.com/Sealal07/Learn-Platform.git
 cd learn_platform
 
 2. Создание виртуального окружения (рекомендуется)
