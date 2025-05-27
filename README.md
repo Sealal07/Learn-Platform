@@ -4,6 +4,7 @@
 
 
 git clone https://github.com/Sealal07/Learn-Platform.git
+
 cd learn_platform
 
 2. Создание виртуального окружения (рекомендуется)
